@@ -6,7 +6,7 @@
 /*   By: dgoremyk <dgoremyk@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 12:18:34 by dgoremyk          #+#    #+#             */
-/*   Updated: 2023/01/29 23:52:03 by dgoremyk         ###   ########.fr       */
+/*   Updated: 2023/01/30 18:54:43 by dgoremyk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,9 @@ pthread_mutex_destroy, pthread_mutex_lock,
 pthread_mutex_unlock
 */
 
-int	main(void)
+int	main(int ac, char **av)
 {
-	printf("blah\n");
+	if (!(valid_input(ac, av)))
+		exit(EXIT_FAILURE);
 	return (0);
 }
