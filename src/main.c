@@ -12,38 +12,50 @@ pthread_mutex_destroy, pthread_mutex_lock,
 pthread_mutex_unlock
 */
 
-void extract_args(t_data *data, int ac, char **av)
+
+int	init_mutex(t_data *data) // mutexes for all forks, global mutexes
 {
-	data->n_philo = philo_atoi(av[1]);
-	data->time_to_die = philo_atoi(av[2]);
-	data->time_to_eat = philo_atoi(av[3]);
-	data->time_to_sleep = philo_atoi(av[4]);
-	data->n_to_eat = -1;
-	if (ac == 6)
-		data->n_to_eat = philo_atoi(av[5]);
- //add sim_stop_flag
-}
+	int	i;
 
-t_philo *init_philos(t_data *data)
-{
-	t_philo *philos;
-
-	philos = ft_calloc(data->n_philo, sizeof(t_philo));
-	if (!philos)
-		return (NULL);
-
-	int i;
-	
+	data->forks = malloc(data->n_philo * sizeof(pthread_mutex_t));
+	if (!data->forks)
+		return (0);
 	i = -1;
 	while (++i < data->n_philo)
 	{
-		philos[i].data = *data;
-		// printf("%d\n", philos[i].data.time_to_die);
-		philos[i].id = i;
-		// printf("%d\n", philos[i].id);
-		philos[i].times_ate = 0;
+		if (pthread_mutex_init(&(data->forks[i]), NULL))
+			return (0);
 	}
-	return(philos);
+	// ADD GLOBAL MUTEXES
+	return (1);
+}
+
+
+int	init_philos(t_data *data)
+{
+	int	i;
+
+	data->philos = ft_calloc(data->n_philo, sizeof(t_philo));
+	if (!data->philos)
+		return (0);
+	i = -1;
+	while (++i < data->n_philo)
+	{
+		data->philos[i].data = *data;
+		// printf("%d\n", philos[i].data.time_to_die);
+		data->philos[i].id = i;
+		// printf("%d\n", philos[i].id);
+		data->philos[i].times_ate = 0;
+		data->philos[i].l_fork = i;
+		data->philos[i].r_fork = (i + 1) % data->n_philo;
+		if (i % 2)
+		{
+			data->philos[i].l_fork = (i + 1) % data->n_philo;
+			data->philos[i].r_fork = i;
+		}
+		printf ("philo id %d, lfork %d, rfork %d\n", data->philos[i].id, data->philos[i].l_fork, data->philos[i].r_fork);
+	}
+	return(1);
 }
 
 t_data	*init_data(int ac, char **av)
@@ -54,9 +66,11 @@ t_data	*init_data(int ac, char **av)
 	if (!data)
 		return(msg("Alloc error"), NULL);
 	extract_args(data, ac, av);
-	data->philos = init_philos(data);
-	if (!data->philos)
+	extract_starttime(data);
+	if (!init_mutex(data)) // mutexes first, so philos can share them
 		return(0);
+	if (!init_philos(data))
+		return (0);
 	return(data);
 }
 
@@ -69,6 +83,7 @@ int	main(int ac, char **av)
 
 	data = init_data(ac, av);
 	if (!data)
-		return(1);
+		return(msg("Initialisation error"), 1);
+	//free data
 	return(0);
 }

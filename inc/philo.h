@@ -6,7 +6,7 @@
 /*   By: dgoremyk <dgoremyk@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 23:24:31 by dgoremyk          #+#    #+#             */
-/*   Updated: 2023/02/08 15:21:08 by dgoremyk         ###   ########.fr       */
+/*   Updated: 2023/02/08 16:29:50 by dgoremyk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <stdlib.h> // EXIT_SUCCESS, EXIT_FAILURE
 # include <pthread.h>
 # include <stdbool.h>
+# include <sys/time.h>
 
 # define PHILO_MAX 250
 
@@ -31,25 +32,32 @@ typedef struct s_philo	t_philo;
 
 typedef struct s_data
 {
+	time_t starttime;
 	int	n_philo;
 	int time_to_die;
 	int time_to_eat;
 	int time_to_sleep;
 	int n_to_eat;
+
+	pthread_mutex_t	*forks; //variable to save mutexes 
 	
 	t_philo	*philos;
-// int sim_stop_flag - extract args // DEAD PHILO
+// SIM_STOP_FLAG - extract args // DEAD PHILO
 } t_data;
 
 typedef struct s_philo
 {
+	
 	int id;
 	int times_ate;
+	int l_fork; // id of fork which philo will take first
+	int r_fork; // used to have an ID of fork mutex
 	t_data data;
 } t_philo;
 
+void extract_starttime(t_data *data);
 void extract_args(t_data *data, int ac, char **av);
-t_data	*init_data(int ac, char **av);
+t_data *init_data(int ac, char **av);
 
 
 void msg(char *s);
