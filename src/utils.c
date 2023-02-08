@@ -16,6 +16,22 @@ int	philo_atoi(const char *s)
 	return ((int)nb);
 }
 
+int	are_digits(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] < '0' || str[i] > '9')
+		{
+			return (0);
+		}
+		i++;
+	}
+	return (1);
+}
+
 
 void	ft_bzero(void *s, size_t n)
 {
