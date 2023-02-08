@@ -26,10 +26,9 @@ int	init_mutex(t_data *data) // mutexes for all forks, global mutexes
 		if (pthread_mutex_init(&(data->forks[i]), NULL))
 			return (0);
 	}
-	// ADD GLOBAL MUTEXES
+	// ADD GLOBAL MUTEXES: printing, dead philo, min amt to eat??
 	return (1);
 }
-
 
 int	init_philos(t_data *data)
 {
