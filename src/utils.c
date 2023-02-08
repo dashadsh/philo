@@ -1,37 +1,40 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: dgoremyk <dgoremyk@student.42wolfsburg.    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/29 23:48:49 by dgoremyk          #+#    #+#             */
-/*   Updated: 2023/01/30 18:35:35 by dgoremyk         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
 
 #include "../inc/philo.h"
 
-int	ft_atoi(const char *str)
+int	philo_atoi(const char *s)
 {
-	int	sign;
-	int	num;
+	long long int	nb;
 
-	sign = 1;
-	num = 0;
-	while ((*str == ' ') || (*str == '\t') || (*str == '\n')
-		|| (*str == '\v') || (*str == '\f') || (*str == '\r'))
-		str++;
-	if (*str == '+' || *str == '-')
+	nb = 0;
+	while (*s >= '0' && *s <= '9')
 	{
-		if (*str == '-')
-			sign *= -1;
-		str++;
+		nb = (nb * 10) + *s - '0';
+		s++;
 	}
-	while (*str >= '0' && *str <= '9')
-	{
-		num = (num * 10) + ((int)*str - '0');
-		str++;
-	}
-	return (num * sign);
+	if (nb > INT_MAX)
+		return (-1);
+	return ((int)nb);
+}
+
+
+void	ft_bzero(void *s, size_t n)
+{
+	size_t	i;
+
+	i = 0;
+	while (i < n)
+		((unsigned char *)s)[i++] = 0;
+}
+
+void	*ft_calloc(size_t count, size_t size)
+{
+	size_t	*str;
+
+	if (count >= 4294967295 || size >= 4294967295)
+		return (NULL);
+	str = malloc(count * size);
+	if (!str)
+		return (NULL);
+	ft_bzero(str, count * size);
+	return (str);
 }
