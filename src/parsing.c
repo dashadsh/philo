@@ -21,6 +21,7 @@ void extract_starttime(t_data *data)
 	//printf("%ld\n", data->starttime);
 }
 
+// add sim_stop_flag??
 void extract_args(t_data *data, int ac, char **av)
 {
 	data->n_philo = philo_atoi(av[1]);
@@ -30,5 +31,4 @@ void extract_args(t_data *data, int ac, char **av)
 	data->n_must_eat = -1;
 	if (ac == 6)
 		data->n_must_eat = philo_atoi(av[5]);
- //add sim_stop_flag
 }

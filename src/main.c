@@ -12,7 +12,7 @@ pthread_mutex_destroy, pthread_mutex_lock,
 pthread_mutex_unlock
 */
 
-int	init_mutex(t_data *data) // mutexes for all forks, global mutexes
+int	init_mutex(t_data *data) // mutexes - all forks, global mutexes
 {
 	int	i;
 
@@ -44,6 +44,11 @@ t_data	*init_data(int ac, char **av)
 	return(data);
 }
 
+// assigning forks id's 
+// should i change approach which fork to assign??
+//
+// .times_ate -  to count until all reach n_must_eat
+// where we add a flag all_ate? ALL need to eat this amt of times
 t_philo	*init_philos(t_data *data)
 {
 	t_philo	*philo;
