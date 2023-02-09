@@ -6,7 +6,7 @@
 /*   By: dgoremyk <dgoremyk@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 23:24:31 by dgoremyk          #+#    #+#             */
-/*   Updated: 2023/02/08 16:29:50 by dgoremyk         ###   ########.fr       */
+/*   Updated: 2023/02/09 12:33:18 by dgoremyk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,16 +32,15 @@ typedef struct s_philo	t_philo;
 
 typedef struct s_data
 {
-	time_t starttime;
+	long starttime;
 	int	n_philo;
 	int time_to_die;
 	int time_to_eat;
 	int time_to_sleep;
-	int n_to_eat;
+	int n_must_eat;
 
 	pthread_mutex_t	*forks; //variable to save mutexes 
-	
-	t_philo	*philos;
+
 // SIM_STOP_FLAG - extract args // DEAD PHILO
 } t_data;
 
@@ -71,6 +70,8 @@ int		philo_atoi(const char *s);
 int		are_digits(char *str);
 void	ft_bzero(void *s, size_t n);
 void	*ft_calloc(size_t count, size_t size);
+
+void	free_all(t_data *data, t_philo *philo);
 
 
 #endif
