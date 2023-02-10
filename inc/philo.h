@@ -6,7 +6,7 @@
 /*   By: dgoremyk <dgoremyk@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 23:24:31 by dgoremyk          #+#    #+#             */
-/*   Updated: 2023/02/09 12:52:28 by dgoremyk         ###   ########.fr       */
+/*   Updated: 2023/02/10 17:20:12 by dgoremyk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@
 // timestamp_in_ms X is thinking
 // timestamp_in_ms X died
 
-typedef struct s_philo	t_philo;
+// typedef struct s_philo	t_philo;
 
 //	pthread_mutex_t	*forks;  - variable to save mutexes 
 typedef struct s_data
@@ -47,23 +47,33 @@ typedef struct s_data
 
 // 	int	l_fork; // id of fork which philo will take first
 //	int	r_fork; // used to have an ID of fork mutex
+//  pthread_t	tid - thread id, each philo is a thread
 typedef struct s_philo
 {
 	int		id;
 	int		times_ate;
 	int		l_fork;
 	int		r_fork;
+//do we need to add mutex for time of last meal????????
+	int		last_meal; // start of program or time of last meal
 	t_data	data;
+
+	pthread_t	tid; // thread id
 }	t_philo;
 
+
+int	main(int ac, char **av);
 //-------------
 
-void	extract_starttime(t_data *data);
 void	extract_args(t_data *data, int ac, char **av);
+int		init_mutex(t_data *data);
 t_data	*init_data(int ac, char **av);
+t_philo	*init_philo(t_data *data);
+
 
 //-------------
 
+void	red(void);
 void	msg(char *s);
 int		contains_digits(int ac, char **av);
 int		contains_integers(int ac, char **av);
