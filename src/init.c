@@ -22,23 +22,6 @@ void extract_args(t_data *data, int ac, char **av)
 		data->n_must_eat = philo_atoi(av[5]);
 }
 
-int	init_mutex(t_data *data) // mutexes - all forks, global mutexes
-{
-	int	i;
-
-	data->forks = malloc(data->n_philo * sizeof(pthread_mutex_t));
-	if (!data->forks)
-		return (0);
-	i = -1;
-	while (++i < data->n_philo)
-	{
-		if (pthread_mutex_init(&(data->forks[i]), NULL))
-			return (0);
-	}
-	// ADD GLOBAL MUTEXES:
-	// PRINT: what else (dead, min amt to eat?)
-	return (1);
-}
 
 t_data	*init_data(int ac, char **av)
 {
@@ -73,7 +56,7 @@ t_philo	*init_philo(t_data *data)
 	i = -1;
 	while (++i < data->n_philo)
 	{
-		philo[i].data = *data;
+		philo[i].data = data;
 		// printf("%d\n", philo[i].data.time_to_die);
 		philo[i].id = i;
 		// philo[i].times_ate = 0; // calloc used

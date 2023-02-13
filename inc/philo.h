@@ -6,7 +6,7 @@
 /*   By: dgoremyk <dgoremyk@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 23:24:31 by dgoremyk          #+#    #+#             */
-/*   Updated: 2023/02/13 14:40:59 by dgoremyk         ###   ########.fr       */
+/*   Updated: 2023/02/13 20:57:21 by dgoremyk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <stdlib.h> // EXIT_SUCCESS, EXIT_FAILURE
 # include <pthread.h>
 # include <stdbool.h>
+ #include <unistd.h>
 # include <sys/time.h>
 
 # define PHILO_MAX 250
@@ -50,6 +51,7 @@ typedef struct s_data
 //  pthread_t	tid - thread id, each philo is a thread
 typedef struct s_philo
 {
+	pthread_t			thread;
 	int				id;
 	int				times_ate;
 	int				l_fork_index;
@@ -57,8 +59,8 @@ typedef struct s_philo
 	pthread_mutex_t	*l_fork_ptr;
 	pthread_mutex_t	*r_fork_ptr;
 //do we need to add mutex for time of last meal????????
-	int				last_meal; // start of program or time of last meal
-	t_data			data;
+	long			last_meal; // start of program or time of last meal
+	t_data			*data;
 
 	pthread_t	tid; // thread id
 }	t_philo;
@@ -70,7 +72,11 @@ int	main(int ac, char **av);
 //-------------init.c
 
 void	extract_args(t_data *data, int ac, char **av);
+
+
 int		init_mutex(t_data *data);
+int		destroy_mutex(t_data *data, t_philo *philo);
+
 t_data	*init_data(int ac, char **av);
 t_philo	*init_philo(t_data *data);
 
