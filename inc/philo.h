@@ -6,7 +6,7 @@
 /*   By: dgoremyk <dgoremyk@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 23:24:31 by dgoremyk          #+#    #+#             */
-/*   Updated: 2023/02/10 17:20:12 by dgoremyk         ###   ########.fr       */
+/*   Updated: 2023/02/13 14:40:59 by dgoremyk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,20 +50,24 @@ typedef struct s_data
 //  pthread_t	tid - thread id, each philo is a thread
 typedef struct s_philo
 {
-	int		id;
-	int		times_ate;
-	int		l_fork;
-	int		r_fork;
+	int				id;
+	int				times_ate;
+	int				l_fork_index;
+	int				r_fork_index;
+	pthread_mutex_t	*l_fork_ptr;
+	pthread_mutex_t	*r_fork_ptr;
 //do we need to add mutex for time of last meal????????
-	int		last_meal; // start of program or time of last meal
-	t_data	data;
+	int				last_meal; // start of program or time of last meal
+	t_data			data;
 
 	pthread_t	tid; // thread id
 }	t_philo;
 
+//-------------main.c
 
 int	main(int ac, char **av);
-//-------------
+
+//-------------init.c
 
 void	extract_args(t_data *data, int ac, char **av);
 int		init_mutex(t_data *data);
@@ -71,7 +75,7 @@ t_data	*init_data(int ac, char **av);
 t_philo	*init_philo(t_data *data);
 
 
-//-------------
+//-------------arg_check.c
 
 void	red(void);
 void	msg(char *s);
@@ -79,19 +83,27 @@ int		contains_digits(int ac, char **av);
 int		contains_integers(int ac, char **av);
 int		valid_input(int ac, char **av);
 
-//-------------
+//-------------utils.c
 
 int		philo_atoi(const char *s);
 int		are_digits(char *str);
 void	ft_bzero(void *s, size_t n);
 void	*ft_calloc(size_t count, size_t size);
 
-//-------------
+//-------------time.c
 
 long	current_time_in_ms(void);
 
-//-------------
+//-------------out.c
+
+
+void	print_status(t_philo *philo, char *s);
+
+//-------------free.c
 
 void	free_all(t_data *data, t_philo *philo);
+
+
+long time_in_ms(void);
 
 #endif

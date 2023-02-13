@@ -13,7 +13,7 @@
    //1 sec = 1000 millisec
    //1 millisec = 1000 microsec
    
-long current_time_in_ms(void)
+long time_in_ms(void)
 {
 	struct timeval	t;
 

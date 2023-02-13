@@ -14,8 +14,19 @@ pthread_mutex_unlock
 
 void	la_grande_bouffe_start(t_data *data, t_philo *philo)
 {
-	data->starttime = current_time_in_ms();
+	// int	i;
+
+	data->starttime = time_in_ms();
 	// printf("%ld\n", data->starttime);
+	// i = 0;
+	// 	while (i < data->n_philo)
+	// {
+	// 	if (pthread_create(&data->forks, NULL, &philosopher,
+	// 			data->philo[i]) != 0)
+	// 		return ;
+	// 	i++;
+	// }
+
 }
 
 

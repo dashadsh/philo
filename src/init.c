@@ -77,14 +77,19 @@ t_philo	*init_philo(t_data *data)
 		// printf("%d\n", philo[i].data.time_to_die);
 		philo[i].id = i;
 		// philo[i].times_ate = 0; // calloc used
-		philo[i].l_fork = i;
-		philo[i].r_fork = (i + 1) % data->n_philo;
+		philo[i].l_fork_index = i;
+		philo[i].r_fork_index = (i + 1) % data->n_philo;
+		philo[i].l_fork_ptr = &data->forks[i]; // why &
+		philo[i].r_fork_ptr = &data->forks[(i + 1) % data->n_philo];
+		// printf("%p %p\n", &data->forks[i], philo[i].l_fork_ptr);
+		//
 		// if (i % 2)
 		// {
-		// 	data->philo[i].l_fork = (i + 1) % data->n_philo;
-		// 	data->philo[i].r_fork = i;
-		// }
-		// printf ("philo id %d, lfork %d, rfork %d\n", philo[i].id, philo[i].l_fork, philo[i].r_fork);
+		// 	data->philo[i].l_fork_index = (i + 1) % data->n_philo;
+		// 	data->philo[i].r_fork_index = i;
+		// // }
+		//
+		// printf ("philo id %d, lfork %d, rfork %d\n", philo[i].id, philo[i].l_fork_index, philo[i].r_fork_index);
 		// printf ("die %d eat %d sleep %d \n", philo[i].data.time_to_die, philo[i].data.time_to_eat, philo[i].data.time_to_sleep);
 	}
 	return(philo);
