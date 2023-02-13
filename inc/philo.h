@@ -6,7 +6,7 @@
 /*   By: dgoremyk <dgoremyk@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 23:24:31 by dgoremyk          #+#    #+#             */
-/*   Updated: 2023/02/13 20:57:21 by dgoremyk         ###   ########.fr       */
+/*   Updated: 2023/02/14 00:04:39 by dgoremyk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,8 @@ typedef struct s_data
 //  pthread_t	tid - thread id, each philo is a thread
 typedef struct s_philo
 {
-	pthread_t			thread;
+	pthread_t	tid; // thread id
+	
 	int				id;
 	int				times_ate;
 	int				l_fork_index;
@@ -62,7 +63,6 @@ typedef struct s_philo
 	long			last_meal; // start of program or time of last meal
 	t_data			*data;
 
-	pthread_t	tid; // thread id
 }	t_philo;
 
 //-------------main.c

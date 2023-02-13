@@ -52,7 +52,7 @@ t_philo	*init_philo(t_data *data)
 
 	philo = ft_calloc(data->n_philo, sizeof(t_philo));
 	if (!philo)
-		return (msg("Alloc error"), NULL);
+		return (msg("Philo struct alloc error"), NULL);
 	i = -1;
 	while (++i < data->n_philo)
 	{
