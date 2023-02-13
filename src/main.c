@@ -36,9 +36,9 @@ void	*philo_routine(void *void_philo)
 	philo = (t_philo *)void_philo;
 	// printf("%d\n", philo->data->n_philo);
 	philo->last_meal = philo->data->starttime;
-	// printf("hello from index %d\n", philo->id);
-	// printf("its starttime %ld\n", philo->data->starttime);
-	// printf("its last meal %ld\n", philo->last_meal);
+	printf("hello from index %d\n", philo->id);
+	printf("its starttime %ld\n", philo->data->starttime);
+	printf("its last meal %ld\n", philo->last_meal);
 	if (philo->data->n_philo == 1)
 		return (one_philo_routine(philo));
 	return (NULL);
@@ -57,8 +57,8 @@ int	la_grande_bouffe_start(t_data *data, t_philo *philo)
 	{
 		if (pthread_create(&philo->tid, NULL, (void *)philo_routine, &philo[i]))
 			return (msg("Error: pthread_create failure"), 0);
-		usleep(100);
 	}
+	usleep(100); // makes them to print in order
 	return (1);
 }
 

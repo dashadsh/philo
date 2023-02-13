@@ -6,7 +6,7 @@
 /*   By: dgoremyk <dgoremyk@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 23:24:31 by dgoremyk          #+#    #+#             */
-/*   Updated: 2023/02/14 00:04:39 by dgoremyk         ###   ########.fr       */
+/*   Updated: 2023/02/14 00:33:01 by dgoremyk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,9 @@ typedef struct s_data
 	int				time_to_die;
 	int				time_to_eat;
 	int				time_to_sleep;
+	
 	int				n_must_eat;
+	int				dead; // flag to stop simulation
 
 	pthread_mutex_t	*forks;
 }	t_data;
@@ -59,6 +61,7 @@ typedef struct s_philo
 	int				r_fork_index;
 	pthread_mutex_t	*l_fork_ptr;
 	pthread_mutex_t	*r_fork_ptr;
+	
 //do we need to add mutex for time of last meal????????
 	long			last_meal; // start of program or time of last meal
 	t_data			*data;
