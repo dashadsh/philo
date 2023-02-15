@@ -93,20 +93,7 @@ void	*routine2(t_philo *philo)
 	return (NULL);
 }
 
-//CHECK DEATH LOOP
-// void	check_death_loop(t_state *state, t_philo *p, int *i)
-// {
-// 	pthread_mutex_lock(&(state->meal_check));
-// 	if (time_diff(p[(*i)].last_meal, timestamp()) > state->time_to_die)
-// 	{
-// 		print_message(state, (*i), DEAD);
-// 		pthread_mutex_lock(&(state->death));
-// 		state->dead = 1;
-// 		pthread_mutex_unlock(&(state->death));
-// 	}
-// 	pthread_mutex_unlock(&(state->meal_check));
-// 	usleep(100);
-// }
+
 
 void	*routine(void *void_philo)
 {
@@ -116,7 +103,7 @@ void	*routine(void *void_philo)
 	philo->last_meal = philo->data->starttime;
 	if (philo->id % 2)
 	{
-		usleep(10000);
+		usleep(2500);
 	}
 	return(routine2(philo));
 }
