@@ -6,7 +6,7 @@
 /*   By: dgoremyk <dgoremyk@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 23:24:31 by dgoremyk          #+#    #+#             */
-/*   Updated: 2023/02/15 18:44:24 by dgoremyk         ###   ########.fr       */
+/*   Updated: 2023/02/15 20:12:07 by dgoremyk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,39 +34,18 @@ typedef struct s_philo	t_philo;
 typedef struct s_data
 {
 	long starttime;
-	
 	int	n_philo;
 	int time_to_die;
 	int time_to_eat;
 	int time_to_sleep;
 	int n_must_eat;
-	
-
-	pthread_mutex_t	*forks; //variable to save mutexes 
-	
-	t_philo	*philo;
-	
-
+	int fed; //count in single killer
 	int sim_stop; // bool, philos are acting until it !=1
-	pthread_mutex_t sim_stop_lock;
-	// pthread_mutex_t all_ate_lock;
+	t_philo	*philo;
+	pthread_mutex_t	*forks; //variable to save mutexes 
 	pthread_mutex_t	write_lock;
 	pthread_mutex_t do_lock;
-
-	// int all_ate; //bool
-
-	// int dead_flag;
-	// pthread_mutex_t	dead_flag_lock;
-	
-	// int all_ate_flag;
-	// pthread_mutex_t	all_ate_flag_lock;
-	
-
-	// pthread_mutex_t	dead_flag_lock;
-	// 		pthread_mutex_t	ate_lock;
-	// 				pthread_mutex_t	all_ate_flag_lock;
-	// pthread_mutex_t do_lock;
-	
+	pthread_mutex_t sim_stop_lock;
 } t_data;
 
 
@@ -78,9 +57,8 @@ typedef struct s_philo
 	int ate; // will be needed to count amt of meals
 	int l_fork; // id of fork which philo will take first
 	int r_fork; // used to have an ID of fork mutex
-	t_data *data;
-
 	long last_meal; // = 0 default
+	t_data *data;
 } t_philo;
 
 // MAIN
@@ -129,6 +107,8 @@ int	simulation_start(t_data *data);
 int	simulation_stop(t_data *data);
 
 int	check_sim_stop(t_philo *philo);
+int	check_sim_stop(t_philo *philo);
+int	sim_stop(t_philo *philo, int i);
 
 // FREE
 void	free_all(t_data *data);

@@ -20,13 +20,44 @@ void	smart_sleep(t_philo *philo, long ms)
 	long	beginning;
 
 	beginning = time_in_ms();
-	while (!check_sim_stop(philo) && (time_in_ms() - beginning) < ms)
-		usleep(50);
+	while (!sim_stop(philo, 0) && (ms > (time_in_ms() - beginning)))
+		usleep(100);
+		//usleep(50);
 }
 
-int	check_sim_stop(t_philo *philo)
+// int	check_sim_stop(t_philo *philo)
+// {
+// 	pthread_mutex_lock(&philo->data->sim_stop_lock);
+// 	if (philo->data->sim_stop)
+// 	{
+// 		pthread_mutex_unlock(&philo->data->sim_stop_lock);
+// 		return (1);
+// 	}
+// 	pthread_mutex_unlock(&philo->data->sim_stop_lock);
+// 	return (0);
+// }
+
+// int	set_sim_stop(t_philo *philo)
+// {
+// 	pthread_mutex_lock(&philo->data->sim_stop_lock);
+// 	{
+// 		philo->data->sim_stop = 1;
+// 		pthread_mutex_unlock(&philo->data->sim_stop_lock);
+// 		return (1);
+// 	}
+// }
+
+// int i=0 - checking funktion
+// int i=1 - changing value
+int	sim_stop(t_philo *philo, int i)
 {
 	pthread_mutex_lock(&philo->data->sim_stop_lock);
+	if (i)
+	{
+		philo->data->sim_stop = 1;
+		pthread_mutex_unlock(&philo->data->sim_stop_lock);
+		return (1);
+	}
 	if (philo->data->sim_stop)
 	{
 		pthread_mutex_unlock(&philo->data->sim_stop_lock);
@@ -36,65 +67,86 @@ int	check_sim_stop(t_philo *philo)
 	return (0);
 }
 
-
-// int	single_killer(t_philo *philo)
-// {
-// 	pthread_mutex_lock(&philo->data->do_lock);
-// 	if ((time_in_ms() - philo->last_meal) >= philo->data->time_to_die)
-// 	{
-// 		print_status(philo, "died");
-// 		set_sim_stop(philo);
-// 		pthread_mutex_unlock(&philo->data->do_lock);
-// 		return (1);
-// 	}
-// 	else if (philo->)
-// }
-
 void	*routine(void *void_philo)
 {
 	t_philo	*philo;
 
 	philo = (t_philo *)void_philo;
 	philo->last_meal = philo->data->starttime;
-	if (philo->id % 2)
-		usleep(5000);
+	if (philo->id % 2 == 0)
+		usleep(philo->data->time_to_eat * 1000);
+		// usleep(5000);
 	while (1)
 	{
-		if (check_sim_stop(philo))
+		if (sim_stop(philo, 0))
+		// if (check_sim_stop(philo))
 			return (NULL);
-		philo_eating(philo);
-		philo_sleeping(philo);
-		philo_thinking(philo);
+		philo_eating(philo); // it may finish but print is protected!
+		// philo_sleeping(philo);
+		print_status(philo, "is sleeping");
+		smart_sleep(philo, philo->data->time_to_sleep);
+		// philo_thinking(philo);
+		print_status(philo, "is thinking");
 	}	
 	return(NULL);
 }
 
-int	set_sim_stop(t_philo *philo)
-{
-	pthread_mutex_lock(&philo->data->sim_stop_lock);
+int	single_thread_must_stop(t_philo *philo)
+{	
+	pthread_mutex_lock(&philo->data->do_lock); //if philo was starving it dies
+	if ((time_in_ms() - philo->last_meal) >= philo->data->time_to_die)
 	{
-		philo->data->sim_stop = 1;
-		pthread_mutex_unlock(&philo->data->sim_stop_lock);
-		return (1);
-	}
+		print_status(philo, "died");
+		sim_stop(philo, 1);
+		pthread_mutex_unlock(&philo->data->do_lock);
+		return (1); //return 1 if killed one philo
+	} //if he is still alive we check and there was one more arg  - data->fed+1 if he ate right amount of meals
+	else if ((philo->data->n_must_eat > 0) && (philo->ate >= philo->data->n_must_eat))
+	{ //do_lock is still active here!!!!
+		philo->data->fed++; //if they all are fed we exp
+		if (philo->data->fed >= philo->data->n_philo)
+		{
+			sim_stop(philo, 1);
+			print_status(philo, "REACHED AMOUNT OF MEALS");
+			pthread_mutex_unlock(&philo->data->do_lock);
+			return (1);
+		}
+	} // if he s still alive and there is no limit of meals/they are not reached
+	pthread_mutex_unlock(&philo->data->do_lock);
+	return (0);
 }
 
-// 	void killer(t_philo *philo)
-// {	
-// 	pthread_mutex_lock(&philo->data->do_lock);
-// 	if ((time_in_ms() - philo->last_meal) >= philo->data->time_to_die)
-// 	{
-// 		print_status(philo, "died");
-// 		set_sim_stop(philo);
-// 		pthread_mutex_unlock(&philo->data->do_lock);
-// 		return (1); //return 1 if killed one philo
-// 	}
-// 	else if ((philo->data->n_must_eat != -1) && philo->ate >= philo->data->)
-// }
+void multiple_thread_monitoring(t_data *data)
+{
+	int i;
 
-// void multiple_killer(t_data *data)
-// {
-// }
+	while (1)
+	{ //limit is amount of meals
+		i = -1;
+		data->fed = 0; //used calloc
+		while(++i < data->n_philo)
+		{
+			if (single_thread_must_stop(&data->philo[i]))
+				return ;
+		} 
+		usleep(10);
+	}
+	// int loop;
+	// int i;
+
+	// loop = 1;
+	// while (loop)
+	// { //limit is amount of meals
+	// 	i = -1;
+	// 	// data->fed = 0; //used calloc
+	// 	while(++i < data->n_philo)
+	// 	{
+	// 		if (loop && single_thread_must_stop(&data->philo[i]))
+	// 			loop = 0;
+	// 	}
+	// 	usleep(10);
+	// }
+}
 
 int	simulation_start(t_data *data)
 {
@@ -110,7 +162,7 @@ int	simulation_start(t_data *data)
 			return (msg("pthread_create error"), 0);
 		// usleep(200);
 	}
-	// multiple_killer(data);
+	multiple_thread_monitoring(data);
 	return (1);
 }
 
