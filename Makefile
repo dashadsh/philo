@@ -6,7 +6,7 @@
 #    By: dgoremyk <dgoremyk@student.42wolfsburg.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/29 23:08:26 by dgoremyk          #+#    #+#              #
-#    Updated: 2023/02/15 03:37:07 by dgoremyk         ###   ########.fr        #
+#    Updated: 2023/02/15 17:08:13 by dgoremyk         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,7 @@ RM = rm -f
 SRC_PATH = src/
 OBJ_PATH = obj/
 
-SRC = main.c utils.c arg_check.c init.c mutex.c free.c message.c lone_philo.c start.c
+SRC = main.c utils.c eat_sleep_think.c arg_check.c init.c mutex.c free.c message.c lone_philo.c
 SRCS = $(addprefix $(SRC_PATH), $(SRC))
 
 OBJ = $(SRC:.c=.o)

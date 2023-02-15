@@ -6,7 +6,7 @@
 /*   By: dgoremyk <dgoremyk@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 23:24:31 by dgoremyk          #+#    #+#             */
-/*   Updated: 2023/02/15 03:29:08 by dgoremyk         ###   ########.fr       */
+/*   Updated: 2023/02/15 18:44:24 by dgoremyk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,18 +40,32 @@ typedef struct s_data
 	int time_to_eat;
 	int time_to_sleep;
 	int n_must_eat;
+	
 
 	pthread_mutex_t	*forks; //variable to save mutexes 
 	
 	t_philo	*philo;
+	
 
-	int dead_flag;
-	pthread_mutex_t	dead_flag_lock;
-	
-	int all_ate_flag;
-	pthread_mutex_t	all_ate_flag_lock;
-	
+	int sim_stop; // bool, philos are acting until it !=1
+	pthread_mutex_t sim_stop_lock;
+	// pthread_mutex_t all_ate_lock;
 	pthread_mutex_t	write_lock;
+	pthread_mutex_t do_lock;
+
+	// int all_ate; //bool
+
+	// int dead_flag;
+	// pthread_mutex_t	dead_flag_lock;
+	
+	// int all_ate_flag;
+	// pthread_mutex_t	all_ate_flag_lock;
+	
+
+	// pthread_mutex_t	dead_flag_lock;
+	// 		pthread_mutex_t	ate_lock;
+	// 				pthread_mutex_t	all_ate_flag_lock;
+	// pthread_mutex_t do_lock;
 	
 } t_data;
 
@@ -93,7 +107,7 @@ void	ft_bzero(void *s, size_t n);
 void	*ft_calloc(size_t count, size_t size);
 long	time_in_ms(void);
 
-
+// LONE_PHILO
 void	*lone_philo_routine(void *void_data);
 int	simulation_for_one(t_data *data);
 
@@ -101,6 +115,20 @@ int	simulation_for_one(t_data *data);
 void	red(void);
 void msg(char *s);
 
+
+void	smart_sleep(t_philo *philo, long ms);
+void	print_status(t_philo *philo, char *s);
+
+void	philo_eating(t_philo *philo);
+void	philo_sleeping(t_philo *philo);
+void	philo_thinking(t_philo *philo);
+
+// void	*routine2(t_philo *philo);
+void	*routine(void *void_philo);
+int	simulation_start(t_data *data);
+int	simulation_stop(t_data *data);
+
+int	check_sim_stop(t_philo *philo);
 
 // FREE
 void	free_all(t_data *data);

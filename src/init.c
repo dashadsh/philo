@@ -30,8 +30,8 @@ int	init_philo(t_data *data)
 		// printf ("ttd %d\n\n", data->philo[i].data->time_to_die);
 		// if (i % 2)
 		// {
-		// 	data->philos[i].l_fork = (i + 1) % data->n_philo;
-		// 	data->philos[i].r_fork = i;
+		// 	data->philo[i].l_fork = (i + 1) % data->n_philo;
+		// 	data->philo[i].r_fork = i;
 		// }
 	}
 	return(1);
