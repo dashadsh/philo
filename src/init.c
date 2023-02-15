@@ -10,7 +10,7 @@ void	extract_args(t_data *data, int ac, char **av)
 	data->n_must_eat = -1;
 	if (ac == 6)
 		data->n_must_eat = philo_atoi(av[5]);
-	data->starttime = time_in_ms();
+	data->starttime = time_in_ms(); // do it here to avoid data_race
 	data->fed = 0;
 	data->sim_stop = 0;
 }
@@ -29,10 +29,9 @@ int	init_philo(t_data *data)
 		data->philo[i].id = i;
 		data->philo[i].l_fork = i;
 		data->philo[i].r_fork = (i + 1) % data->n_philo;
-		data->philo[i].last_meal = data->starttime;
+		data->philo[i].last_meal = data->starttime; // // do it here to avoid data_race
+		// data->philo[i].last_meal = 0;
 		data->philo[i].data = data;
-		// printf ("philo id %d, lfork %d, rfork %d\n", data->philo[i].id, data->philo[i].l_fork, data->philo[i].r_fork);
-		// printf ("ttd %d\n\n", data->philo[i].data->time_to_die);
 		// if (i % 2)
 		// {
 		// 	data->philo[i].l_fork = (i + 1) % data->n_philo;

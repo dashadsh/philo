@@ -38,6 +38,6 @@ int	valid_input(int ac, char **av)
 	if (!contains_integers(ac, av))
 		return(msg("int 1-INTMAX allowed"), 0);
 	if (philo_atoi(av[1]) > PHILO_MAX) // do we need this check??
-		return (msg("check philo_max macros"), 0);	
+		return (msg("max 200 philos"), 0);	
 	return (1);
 }

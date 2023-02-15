@@ -15,7 +15,7 @@ void	msg(char *s)
 void	print_status(t_philo *philo, char *s)
 {
 	pthread_mutex_lock(&(philo->data->write_lock));
-	if (!(sim_stop(philo, 0)))
+	if (!check_sim_stop(philo))
 	{
 		printf("%ld ", time_in_ms() - philo->data->starttime);
 		printf("%i ", philo->id + 1);

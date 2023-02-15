@@ -15,15 +15,15 @@ int	init_mutex(t_data *data) // mutexes - all forks, global mutexes
 			return (msg("pthread_mutex_init error"), 0);
 	}
 	if (pthread_mutex_init(&(data->sim_stop_lock), NULL))
-			return (msg("pthread_mutex_init error"), 0);
+		return (msg("pthread_mutex_init error"), 0);
 	if (pthread_mutex_init(&(data->write_lock), NULL))
-			return (msg("pthread_mutex_init error"), 0);
+		return (msg("pthread_mutex_init error"), 0);
 	if (pthread_mutex_init(&(data->do_lock), NULL))
-			return (msg("pthread_mutex_init error"), 0);
+		return (msg("pthread_mutex_init error"), 0);
 	return (1);
 }
 
-int	destroy_mutex(t_data *data) // mutexes - all forks, global mutexes
+int	destroy_mutex(t_data *data)
 {
 	int	i;
 
@@ -34,10 +34,10 @@ int	destroy_mutex(t_data *data) // mutexes - all forks, global mutexes
 			return (msg("pthread_mutex_destroy error"), 0);
 	}
 	if (pthread_mutex_destroy(&(data->write_lock)))
-			return (msg("pthread_mutex_destroy error"), 0);
+		return (msg("pthread_mutex_destroy error"), 0);
 	if (pthread_mutex_destroy(&(data->sim_stop_lock)))
-			return (msg("pthread_mutex_destroy error"), 0);
+		return (msg("pthread_mutex_destroy error"), 0);
 	if (pthread_mutex_destroy(&(data->do_lock)))
-			return (msg("pthread_mutex_destroy error"), 0);
+		return (msg("pthread_mutex_destroy error"), 0);
 	return (1);
 }

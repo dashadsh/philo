@@ -6,15 +6,14 @@
 #    By: dgoremyk <dgoremyk@student.42wolfsburg.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/29 23:08:26 by dgoremyk          #+#    #+#              #
-#    Updated: 2023/02/15 22:25:13 by dgoremyk         ###   ########.fr        #
+#    Updated: 2023/02/15 23:15:33 by dgoremyk         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = philo
 
 CC = gcc 
-CFLAGS = -g -pthread -fsanitize=thread
-#-Wall -Werror -Wextra
+CFLAGS = -g -pthread -Wall -Werror -Wextra -fsanitize=thread
 
 RM = rm -f
 # rm -rf ???
@@ -22,7 +21,7 @@ RM = rm -f
 SRC_PATH = src/
 OBJ_PATH = obj/
 
-SRC = main.c utils.c eat_sleep_think.c arg_check.c init.c mutex.c free.c message.c lone_philo.c
+SRC = main.c utils.c eat_sleep_think.c monitoring.c arg_check.c init.c mutex.c free.c message.c simulation.c
 SRCS = $(addprefix $(SRC_PATH), $(SRC))
 
 OBJ = $(SRC:.c=.o)
