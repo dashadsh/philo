@@ -33,7 +33,7 @@ void	print_status(t_data *data, int id, char *s)
 // how to monitor death during the sleep??
 // }
 
-void	philo_eats(t_philo *philo)
+void	philo_eating(t_philo *philo)
 {
 	t_data	*data;
 
@@ -51,29 +51,22 @@ void	philo_eats(t_philo *philo)
 	pthread_mutex_unlock(&(data->forks[philo->r_fork]));
 }
 
+void	philo_sleping(t_philo *philo)
+{
+		print_status(philo->data, philo->id, "is sleeping");
+		usleep(philo->data->time_to_sleep);
+		// mysleep(philo->data, philo->data->time_to_sleep);
+}
+
 void	*routine2(t_philo *philo)
 {
 	while (1)
 	{
-		philo_eats(philo);
-		// pthread_mutex_lock(&(philo->data->all_ate_lock));
-		// if (philo->data->all_ate) // HOW TO FIND OUT ALL ATE
-		// {
-		// 	pthread_mutex_unlock(&(philo->data->all_ate_lock));
-		// 	break ;
-		// }
-		// pthread_mutex_unlock(&(philo->data->all_ate_lock));
-		print_status(philo->data, philo->id, "is sleeping");
-		usleep(philo->data->time_to_sleep);
-		// mysleep(philo->data, philo->data->time_to_sleep);
+		philo_eating(philo);
+		//ALL ATE FLAG LOCK CHECK??
+		philo_sleping(philo);
 		print_status(philo->data, philo->id, "is thinking");
-		// pthread_mutex_lock(&(philo->data->dead_flag_lock));
-		// if (philo->data->dead_flag)
-		// {
-		// 	 pthread_mutex_unlock(&(philo->data->dead_flag_lock));
-		// 	break ;
-		// }
-		//  pthread_mutex_unlock(&(philo->data->dead_flag_lock));
+		//DEAD FLAG LOCK CHECK??
 	}
 	return (NULL);
 }
