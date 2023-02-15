@@ -6,7 +6,7 @@
 /*   By: dgoremyk <dgoremyk@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 23:24:31 by dgoremyk          #+#    #+#             */
-/*   Updated: 2023/02/15 20:12:07 by dgoremyk         ###   ########.fr       */
+/*   Updated: 2023/02/15 21:54:15 by dgoremyk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,7 @@ long	time_in_ms(void);
 
 // LONE_PHILO
 void	*lone_philo_routine(void *void_data);
+void	*lone_philo_routine2(void *void_philo);
 int	simulation_for_one(t_data *data);
 
 // MESSAGE

@@ -6,14 +6,14 @@
 #    By: dgoremyk <dgoremyk@student.42wolfsburg.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/29 23:08:26 by dgoremyk          #+#    #+#              #
-#    Updated: 2023/02/15 19:52:19 by dgoremyk         ###   ########.fr        #
+#    Updated: 2023/02/15 22:25:13 by dgoremyk         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = philo
 
 CC = gcc 
-CFLAGS = -g -pthread #-fsanitize=thread
+CFLAGS = -g -pthread -fsanitize=thread
 #-Wall -Werror -Wextra
 
 RM = rm -f

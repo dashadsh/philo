@@ -73,6 +73,9 @@ void	*routine(void *void_philo)
 
 	philo = (t_philo *)void_philo;
 	// philo->last_meal = philo->data->starttime;
+	if (philo->data->n_philo == 1)
+		return(lone_philo_routine2(philo));
+
 	if (philo->id % 2 == 0)
 		usleep(philo->data->time_to_eat * 1000);
 		// usleep(5000);
@@ -152,9 +155,9 @@ int	simulation_start(t_data *data)
 {
 	int	i;
 
-	if (data->n_philo == 1)
-		return (simulation_for_one(data));
-	// data->starttime = time_in_ms();
+	// if (data->n_philo == 1) // moved it to routine
+	// 	return (simulation_for_one(data));
+	// data->starttime = time_in_ms(); //did it earlier
 	i = -1;
 	while (++i < data->n_philo)
 	{
