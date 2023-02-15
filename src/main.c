@@ -13,25 +13,7 @@ pthread_mutex_unlock
 */
 
 /* checks if someone died during sleep*/
-void	mysleep(t_data *data, long time_to_sleep)
-{
-	long	old_time;
 
-	old_time = time_in_ms();
-	while (1)
-	{
-		pthread_mutex_lock(&(data->dead_flag_lock));
-		if (data->dead_flag)
-		{
-			pthread_mutex_unlock(&(data->dead_flag_lock));
-			break ;
-		}
-		pthread_mutex_unlock(&(data->dead_flag_lock));
-		if ((time_in_ms() - old_time) >= time_to_sleep)
-			break ;
-		// usleep(50);
-	}
-}
 
 void	print_status(t_data *data, int id, char *s)
 {
@@ -46,6 +28,26 @@ void	print_status(t_data *data, int id, char *s)
 	return ;
 }
 
+// void	mysleep(t_data *data, long time_to_sleep)
+// {
+// 	long	old_time;
+
+// 	old_time = time_in_ms();
+// 	while (1)
+// 	{
+// 		pthread_mutex_lock(&(data->dead_flag_lock));
+// 		if (data->dead_flag)
+// 		{
+// 			pthread_mutex_unlock(&(data->dead_flag_lock));
+// 			break ;
+// 		}
+// 		pthread_mutex_unlock(&(data->dead_flag_lock));
+// 		if ((time_in_ms() - old_time) >= time_to_sleep)
+// 			break ;
+// 		// usleep(50);
+// 	}
+// }
+
 void	philo_eats(t_philo *philo)
 {
 	t_data	*data;
@@ -55,14 +57,11 @@ void	philo_eats(t_philo *philo)
 	print_status(data, philo->id, "has taken a fork");
 	pthread_mutex_lock(&(data->forks[philo->r_fork]));
 	print_status(data, philo->id, "has taken a fork");
-	// pthread_mutex_lock(&(data->do_lock));
 	print_status(data, philo->id, "is eating");
 	philo->last_meal = time_in_ms();
-	// pthread_mutex_unlock(&(data->do_lock));
-	mysleep(data, data->time_to_eat);
-	// pthread_mutex_lock(&(data->ate_lock));
+	usleep(data->time_to_eat);
+	// mysleep(data, data->time_to_eat);
 	philo->ate++; // CHANGING LOCAL STUFF
-	// pthread_mutex_unlock(&(data->ate_lock));
 	pthread_mutex_unlock(&(data->forks[philo->l_fork]));
 	pthread_mutex_unlock(&(data->forks[philo->r_fork]));
 }
@@ -80,15 +79,16 @@ void	*routine2(t_philo *philo)
 		// }
 		// pthread_mutex_unlock(&(philo->data->all_ate_lock));
 		print_status(philo->data, philo->id, "is sleeping");
-		mysleep(philo->data, philo->data->time_to_sleep);
+		usleep(philo->data->time_to_sleep);
+		// mysleep(philo->data, philo->data->time_to_sleep);
 		print_status(philo->data, philo->id, "is thinking");
-		pthread_mutex_lock(&(philo->data->dead_flag_lock));
-		if (philo->data->dead_flag)
-		{
-			pthread_mutex_unlock(&(philo->data->dead_flag_lock));
-			break ;
-		}
-		pthread_mutex_unlock(&(philo->data->dead_flag_lock));
+		// pthread_mutex_lock(&(philo->data->dead_flag_lock));
+		// if (philo->data->dead_flag)
+		// {
+		// 	 pthread_mutex_unlock(&(philo->data->dead_flag_lock));
+		// 	break ;
+		// }
+		//  pthread_mutex_unlock(&(philo->data->dead_flag_lock));
 	}
 	return (NULL);
 }
@@ -124,7 +124,6 @@ int	simulation_start(t_data *data)
 			return (msg("pthread_create error"), 0);
 		// usleep(100);
 	}
-	//CHECK DEATH
 	return (1);
 }
 

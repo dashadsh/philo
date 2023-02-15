@@ -6,7 +6,7 @@
 /*   By: dgoremyk <dgoremyk@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 23:24:31 by dgoremyk          #+#    #+#             */
-/*   Updated: 2023/02/15 02:30:49 by dgoremyk         ###   ########.fr       */
+/*   Updated: 2023/02/15 03:29:08 by dgoremyk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,11 +47,12 @@ typedef struct s_data
 
 	int dead_flag;
 	pthread_mutex_t	dead_flag_lock;
-	int all_ate_flag; // bool????? // 9
-	// pthread_mutex_t	do_lock; !!!
+	
+	int all_ate_flag;
+	pthread_mutex_t	all_ate_flag_lock;
+	
 	pthread_mutex_t	write_lock;
-	// pthread_mutex_t	ate_lock; //!!!
-	pthread_mutex_t	all_ate_flag_lock; // !!!
+	
 } t_data;
 
 
