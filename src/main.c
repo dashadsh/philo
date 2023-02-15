@@ -30,22 +30,7 @@ void	print_status(t_data *data, int id, char *s)
 
 // void	mysleep(t_data *data, long time_to_sleep)
 // {
-// 	long	old_time;
-
-// 	old_time = time_in_ms();
-// 	while (1)
-// 	{
-// 		pthread_mutex_lock(&(data->dead_flag_lock));
-// 		if (data->dead_flag)
-// 		{
-// 			pthread_mutex_unlock(&(data->dead_flag_lock));
-// 			break ;
-// 		}
-// 		pthread_mutex_unlock(&(data->dead_flag_lock));
-// 		if ((time_in_ms() - old_time) >= time_to_sleep)
-// 			break ;
-// 		// usleep(50);
-// 	}
+// how to monitor death during the sleep??
 // }
 
 void	philo_eats(t_philo *philo)

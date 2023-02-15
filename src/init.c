@@ -40,7 +40,6 @@ int	init_philo(t_data *data)
 int	init_data(t_data *data, int ac, char **av)
 {
 	extract_args(data, ac, av);
-	// printf()
 	if (!init_mutex(data)) // mutexes first, so philos can share them
 		return (msg("init_mutex error"), 0);
 	if (!init_philo(data))
