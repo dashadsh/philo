@@ -20,8 +20,8 @@ void	*lone_philo_routine(void *void_data)
 	data = (t_data *)void_data;
 	// printf("hello from index %d\n", philo->id);
 	// printf("amt of philo %d\n", philo->data->n_philo);
-	printf("0 philo #1 has taken a fork\n");
-	printf("%d philo #1 died\n", data->time_to_die);
+	printf("0 philo 1 has taken a fork\n");
+	printf("%d philo 1 died\n", data->time_to_die);
 	return (NULL);
 }
 
