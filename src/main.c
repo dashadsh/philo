@@ -108,7 +108,7 @@ void	*routine(void *void_philo)
 	return(routine2(philo));
 }
 
-/* we can pass only 1 par to the thread so we need to have struct in a struct*/
+
 int	simulation_start(t_data *data)
 {
 	int i;
@@ -116,7 +116,6 @@ int	simulation_start(t_data *data)
 	if (data->n_philo == 1)
 		return (simulation_for_one(data));
 	data->starttime = time_in_ms();
-	// printf("%ld starttime\n", data->starttime);
 	i = -1;
 	while (++i < data->n_philo)
 	{
@@ -142,7 +141,6 @@ int	simulation_stop(t_data *data)
 		return (msg("destroy_mutex error"), 0);
 	return (1);
 }
-
 
 int	main(int ac, char **av)
 {
