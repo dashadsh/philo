@@ -43,7 +43,7 @@ void	philo_eating(t_philo *philo)
 	pthread_mutex_lock(&(data->forks[philo->r_fork]));
 	print_status(data, philo->id, "has taken a fork");
 	print_status(data, philo->id, "is eating");
-	philo->last_meal = time_in_ms();
+	philo->last_meal = time_in_ms(); // can the time be different from line before??
 	usleep(data->time_to_eat);
 	// mysleep(data, data->time_to_eat);
 	philo->ate++; // CHANGING LOCAL STUFF
@@ -85,7 +85,6 @@ void	*routine(void *void_philo)
 	}
 	return(routine2(philo));
 }
-
 
 int	simulation_start(t_data *data)
 {
