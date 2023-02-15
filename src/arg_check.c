@@ -1,17 +1,6 @@
 
 #include "../inc/philo.h"
 
-void	red(void)
-{
-	printf("\033[1;31m");
-}
-
-void msg(char *s)
-{
-	red();
-	printf("%s\n", s);
-}
-
 int	contains_digits(int ac, char **av)
 {
 	int	i;
@@ -43,12 +32,12 @@ int	contains_integers(int ac, char **av)
 int	valid_input(int ac, char **av)
 {
 	if (ac < 5 || ac > 6)
-		return (msg("Wrong arg amount"), 0);
+		return (msg("wrong arg amount"), 0);
 	if (!contains_digits(ac, av))
-		return (msg("Only digits 0-9 are allowed"), 0);
+		return (msg("digits 0-9 allowed"), 0);
 	if (!contains_integers(ac, av))
-		return(msg("Only 1-INTMAX are allowed"), 0);
+		return(msg("int 1-INTMAX allowed"), 0);
 	if (philo_atoi(av[1]) > PHILO_MAX) // do we need this check??
-		return (msg("Change amt of philos"), 0);	
+		return (msg("check philo_max macros"), 0);	
 	return (1);
 }

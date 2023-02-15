@@ -1,3 +1,2 @@
 
-
 #include "../inc/philo.h"

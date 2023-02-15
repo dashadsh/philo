@@ -7,19 +7,28 @@ int	init_mutex(t_data *data) // mutexes - all forks, global mutexes
 
 	data->forks = malloc(data->n_philo * sizeof(pthread_mutex_t));
 	if (!data->forks)
-		return (0);
+		return (msg("malloc error"), 0);
 	i = -1;
 	while (++i < data->n_philo)
 	{
 		if (pthread_mutex_init(&(data->forks[i]), NULL))
-			return (0);
+			return (msg("pthread_mutex_init error"), 0);
 	}
 	// ADD GLOBAL MUTEXES:
-	// PRINT: what else (dead, min amt to eat?)
+	if (pthread_mutex_init(&(data->write_lock), NULL))
+			return (msg("pthread_mutex_init error"), 0);
+	if (pthread_mutex_init(&(data->dead_flag_lock), NULL))
+			return (msg("pthread_mutex_init error"), 0);
+	if (pthread_mutex_init(&(data->all_ate_flag_lock), NULL))
+			return (msg("pthread_mutex_init error"), 0);
+	// if (pthread_mutex_init(&(data->ate_lock), NULL))
+	// 		return (msg("pthread_mutex_init error"), 0);
+	// if (pthread_mutex_init(&(data->do_lock), NULL))
+	// 		return (msg("pthread_mutex_init error"), 0);
 	return (1);
 }
 
-int	destroy_mutex(t_data *data, t_philo *philo) // mutexes - all forks, global mutexes
+int	destroy_mutex(t_data *data) // mutexes - all forks, global mutexes
 {
 	int	i;
 
@@ -27,9 +36,18 @@ int	destroy_mutex(t_data *data, t_philo *philo) // mutexes - all forks, global m
 	while (++i < data->n_philo)
 	{
 		if (pthread_mutex_destroy(&(data->forks[i])))
-			return (msg("Error: unable to destroy mutex"), 0);
+			return (msg("pthread_mutex_destroy error"), 0);
 	}
 	// ADD GLOBAL MUTEXES:
-	// PRINT: what else (dead, min amt to eat?)
+	if (pthread_mutex_destroy(&(data->write_lock)))
+			return (msg("pthread_mutex_destroy error"), 0);
+	if (pthread_mutex_destroy(&(data->dead_flag_lock)))
+			return (msg("pthread_mutex_destroy error"), 0);
+	if (pthread_mutex_destroy(&(data->all_ate_flag_lock)))
+			return (msg("pthread_mutex_destroy error"), 0);
+	// if (pthread_mutex_destroy(&(data->ate_lock)))
+	// 		return (msg("pthread_mutex_destroy error"), 0);
+	// if (pthread_mutex_destroy(&(data->do_lock)))
+	// 		return (msg("pthread_mutex_destroy error"), 0);
 	return (1);
 }

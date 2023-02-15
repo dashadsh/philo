@@ -32,7 +32,6 @@ int	are_digits(char *str)
 	return (1);
 }
 
-
 void	ft_bzero(void *s, size_t n)
 {
 	size_t	i;
@@ -53,4 +52,13 @@ void	*ft_calloc(size_t count, size_t size)
 		return (NULL);
 	ft_bzero(str, count * size);
 	return (str);
+}
+
+long	time_in_ms(void)
+{
+	struct timeval	t;
+
+	gettimeofday(&t, NULL);
+	//printf("%ld\n", t.tv_sec * 1000 + t.tv_usec / 1000);
+	return (t.tv_sec * 1000 + t.tv_usec / 1000);
 }
