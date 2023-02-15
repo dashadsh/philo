@@ -72,7 +72,7 @@ void	*routine(void *void_philo)
 	t_philo	*philo;
 
 	philo = (t_philo *)void_philo;
-	philo->last_meal = philo->data->starttime;
+	// philo->last_meal = philo->data->starttime;
 	if (philo->id % 2 == 0)
 		usleep(philo->data->time_to_eat * 1000);
 		// usleep(5000);
@@ -154,7 +154,7 @@ int	simulation_start(t_data *data)
 
 	if (data->n_philo == 1)
 		return (simulation_for_one(data));
-	data->starttime = time_in_ms();
+	// data->starttime = time_in_ms();
 	i = -1;
 	while (++i < data->n_philo)
 	{
@@ -189,7 +189,7 @@ int	main(int ac, char **av)
 	if (!valid_input(ac, av))
 		return (msg("input invalid"), 1);
 
-	data = ft_calloc(1, sizeof(t_data));
+	data = malloc(1 * sizeof(t_data));
 	if (!data)
 		return(msg("ft_calloc (t_data *data) error"), 1);
 	if (!init_data(data, ac, av))
