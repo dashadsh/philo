@@ -6,7 +6,7 @@
 #    By: dgoremyk <dgoremyk@student.42wolfsburg.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/29 23:08:26 by dgoremyk          #+#    #+#              #
-#    Updated: 2023/02/16 15:04:23 by dgoremyk         ###   ########.fr        #
+#    Updated: 2023/02/16 15:10:30 by dgoremyk         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,6 +23,7 @@ OBJ_PATH = obj/
 SRC = main.c utils.c eat_sleep_think.c monitoring.c arg_check.c init.c mutex.c message.c simulation.c
 SRCS = $(addprefix $(SRC_PATH), $(SRC))
 # addprefix adds path so we can access to files
+# when having files in a same folder could be used SRC=*.c
 
 OBJ = $(SRC:.c=.o)
 OBJS = $(addprefix $(OBJ_PATH), $(OBJ))
@@ -33,7 +34,9 @@ all: $(NAME)
 
 $(NAME): $(OBJS)
 	$(CC) $(OBJS) $(CFLAGS) -o $(NAME)
-#linux sources instead of objs error
+#linux: change to SRCS instead of objs
+#$(NAME): $(SRCS)
+#	$(CC) $(SRCS) $(CFLAGS) -o $(NAME)
 
 $(OBJ_PATH)%.o: $(SRC_PATH)%.c
 	@mkdir -p $(OBJ_PATH)
