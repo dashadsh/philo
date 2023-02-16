@@ -6,7 +6,7 @@
 #    By: dgoremyk <dgoremyk@student.42wolfsburg.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/29 23:08:26 by dgoremyk          #+#    #+#              #
-#    Updated: 2023/02/16 15:25:12 by dgoremyk         ###   ########.fr        #
+#    Updated: 2023/02/16 15:27:54 by dgoremyk         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,7 +37,8 @@ all: $(NAME)
 # @mkdir -p flag to supress error if directory already exists
 $(OBJ_PATH)%.o: $(SRC_PATH)%.c
 	@mkdir -p $(OBJ_PATH)
-	@$(CC) $(CFLAGS) -c $< -o $@ $(DEPS)
+	@$(CC) $(CFLAGS) -c $< -o $@
+# $(DEPS) - could be added to the line above
 	
 # compiles all object files and builds executable file 'philo'
 $(NAME): $(OBJS)
