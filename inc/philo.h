@@ -6,7 +6,7 @@
 /*   By: dgoremyk <dgoremyk@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 23:24:31 by dgoremyk          #+#    #+#             */
-/*   Updated: 2023/02/16 11:46:00 by dgoremyk         ###   ########.fr       */
+/*   Updated: 2023/02/16 13:25:04 by dgoremyk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,6 @@ void msg(char *s);
 //MONITORING
 int	check_sim_stop(t_philo *philo);
 int	set_sim_stop(t_philo *philo);
-// int	sim_stop(t_philo *philo, int i);
 int	single_thread_must_stop(t_philo *philo);
 void multiple_thread_monitoring(t_data *data);
 
@@ -108,9 +107,7 @@ int	simulation_start(t_data *data);
 int	simulation_stop(t_data *data);
 
 // SIMULATION
-// void	*lone_philo_routine(void *void_data);
-// int	simulation_for_one(t_data *data);
-void	*lone_philo_routine2(void *void_philo);
+void	*lone_philo_routine(void *void_philo);
 void	*routine(void *void_philo);
 int	simulation_start(t_data *data);
 int	simulation_stop(t_data *data);

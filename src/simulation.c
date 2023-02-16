@@ -1,38 +1,28 @@
-
-
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   simulation.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dgoremyk <dgoremyk@student.42wolfsburg.    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/02/16 13:50:24 by dgoremyk          #+#    #+#             */
+/*   Updated: 2023/02/16 13:54:37 by dgoremyk         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "../inc/philo.h"
 
 /*
-External funct.:
+assignment says:
+every philo (even single one) should be the thread,
+every philo has one fork which is protected by mutex
 
-memset, printf, malloc, free, write,
-usleep, gettimeofday, pthread_create,
-pthread_detach, pthread_join, pthread_mutex_init,
-pthread_mutex_destroy, pthread_mutex_lock,
-pthread_mutex_unlock
+we have to build this function in the same way as others
+
+philo will be not interrupted by death of the others,
+so no smart_sleep needed
 */
-
-// void	*lone_philo_routine(void *void_data)
-// {
-// 	t_data *data;
-
-// 	data = (t_data *)void_data;
-// 	// printf("hello from index %d\n", philo->id);
-// 	// printf("amt of philo %d\n", philo->data->n_philo);
-// 	printf("0 philo 1 has taken a fork\n");
-// 	printf("%d philo 1 died\n", data->time_to_die);
-// 	return (NULL);
-// }
-
-// int	simulation_for_one(t_data *data)
-// {
-// 	if (pthread_create(&data->philo[0].philo_tid, NULL, &lone_philo_routine, data))
-// 		return (msg("pthread_create error"), 0);
-// 	return (1);
-// }
-
-void	*lone_philo_routine2(void *void_philo)
+void	*lone_philo_routine(void *void_philo)
 {
 	t_philo	*philo;
 
@@ -40,26 +30,38 @@ void	*lone_philo_routine2(void *void_philo)
 	pthread_mutex_lock(&philo->data->forks[0]);
 	print_fork(philo);
 	// print_status(philo, "has taken the fork");
-	smart_sleep(philo, philo->data->time_to_die);
+	usleep(philo->data->time_to_die * 1000);
 	print_die(philo);
 	// print_status(philo, "died");
 	pthread_mutex_unlock(&philo->data->forks[0]);
 	return (NULL);
 }
 
+/* 
+to protect from a deadlock, let the half of philos to wait.
+chosen delay time -  time other philo needs to finish their meals.
+previous delay time was usleep(2500); but it didnt work with
+input 100 500 200 200
 
+infinite loop (may me interupted when someone died or ate enough)
+
+during eating and sleeping we use smart_sleep function,
+it interrupts sleeping if someone died,
+so program doesnt hang until wake up and finishes it execution right after.
+
+could have added here on the start: philo->last_meal = philo->data->starttime;
+bud did earlier to avod data_races
+*/
 void	*routine(void *void_philo)
 {
 	t_philo	*philo;
 
 	philo = (t_philo *)void_philo;
-	// philo->last_meal = philo->data->starttime; //did earlier to avod data_races
 
 	if (philo->data->n_philo == 1)
-		return(lone_philo_routine2(philo));
-
-	if (philo->id % 2 == 0)
-		usleep(5000);
+		return (lone_philo_routine(philo));
+	if (philo->id % 2)
+		usleep(philo->data->time_to_eat * 1000);
 	while (1)
 	{
 		if (check_sim_stop(philo))
@@ -72,27 +74,41 @@ void	*routine(void *void_philo)
 			return (NULL);
 		philo_thinking(philo);
 	}	
-	return(NULL);
+	return (NULL);
 }
 
+/* 
+each philo is a thread, 
+we initialized them duting init_data
+
+at the same time we run multiple_thread_monitoring(data);
+i don't know if i should create thread for it
+
+could have added on the beginning data->starttime = time_in_ms()
+but it was moved to data_init to avoid data_races
+
+do we need to add usleep in while loop?
+*/
 int	simulation_start(t_data *data)
 {
 	int	i;
 
-	// if (data->n_philo == 1) // moved it to routine
-	// 	return (simulation_for_one(data));
-	// data->starttime = time_in_ms(); //did it earlier to avoid data_races
 	i = -1;
 	while (++i < data->n_philo)
 	{
-		if (pthread_create(&data->philo[i].philo_tid, NULL, &routine, &data->philo[i]))
+		if (pthread_create(&data->philo[i].philo_tid, NULL,
+				&routine, &data->philo[i]))
 			return (msg("pthread_create error"), 0);
-		// usleep(200);
 	}
 	multiple_thread_monitoring(data);
 	return (1);
 }
 
+/*
+notice that when routine function/simulation is not perfect
+we should silent pthread_join check,
+because it will give us error from deadlock
+*/
 int	simulation_stop(t_data *data)
 {
 	int	i;
@@ -100,9 +116,8 @@ int	simulation_stop(t_data *data)
 	i = -1;
 	while (++i < data->n_philo)
 	{
-		// pthread_join(data->philo[i].philo_tid, NULL); // GIVES ERROR CUS DEADLOCK when start coding
 		if (pthread_join(data->philo[i].philo_tid, NULL))
-				return (msg("pthread_join error"), 0);
+			return (msg("pthread_join error"), 0);
 	}
 	if (!destroy_mutex(data))
 		return (msg("destroy_mutex error"), 0);

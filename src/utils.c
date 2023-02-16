@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dgoremyk <dgoremyk@student.42wolfsburg.    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/02/16 13:54:45 by dgoremyk          #+#    #+#             */
+/*   Updated: 2023/02/16 14:09:04 by dgoremyk         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "../inc/philo.h"
 
@@ -52,11 +63,21 @@ void	*ft_calloc(size_t count, size_t size)
 	return (str);
 }
 
+/*
+struct    timeval  {
+  time_t        tv_sec ;   //used for seconds
+  suseconds_t       tv_usec ;   //used for microseconds
+}
+
+so we need to sum those 2 numbers to use in our functions
+
+to test:
+printf("%ld\n", t.tv_sec * 1000 + t.tv_usec / 1000);
+*/
 long	time_in_ms(void)
 {
 	struct timeval	t;
 
 	gettimeofday(&t, NULL);
-	//printf("%ld\n", t.tv_sec * 1000 + t.tv_usec / 1000);
 	return (t.tv_sec * 1000 + t.tv_usec / 1000);
 }

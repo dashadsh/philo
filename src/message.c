@@ -45,6 +45,7 @@
 // 	pthread_mutex_unlock(&(philo->data->write_lock));
 // }
 
+/* prints message in */
 void	print_fork(t_philo *philo)
 {
 	pthread_mutex_lock(&(philo->data->write_lock));
