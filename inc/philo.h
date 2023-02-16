@@ -6,7 +6,7 @@
 /*   By: dgoremyk <dgoremyk@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 23:24:31 by dgoremyk          #+#    #+#             */
-/*   Updated: 2023/02/15 23:14:29 by dgoremyk         ###   ########.fr       */
+/*   Updated: 2023/02/16 11:46:00 by dgoremyk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,13 +122,13 @@ void	ft_bzero(void *s, size_t n);
 void	*ft_calloc(size_t count, size_t size);
 long	time_in_ms(void);
 
+// STATUS
 
-
-
-
-
-
-
+void	print_die(t_philo *philo);
+void	print_eat(t_philo *philo);
+void	print_sleep(t_philo *philo);
+void	print_think(t_philo *philo);
+void	print_fork(t_philo *philo);
 
 
 

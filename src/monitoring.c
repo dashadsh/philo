@@ -23,34 +23,15 @@ int	set_sim_stop(t_philo *philo)
 	}
 }
 
-// int i=0 - checking funktion
-// int i=1 - changing value
-// int	sim_stop(t_philo *philo, int i)
-// {
-// 	pthread_mutex_lock(&philo->data->sim_stop_lock);
-// 	if (i)
-// 	{
-// 		philo->data->sim_stop = 1;
-// 		pthread_mutex_unlock(&philo->data->sim_stop_lock);
-// 		return (1);
-// 	}
-// 	if (philo->data->sim_stop)
-// 	{
-// 		pthread_mutex_unlock(&philo->data->sim_stop_lock);
-// 		return (1);
-// 	}
-// 	pthread_mutex_unlock(&philo->data->sim_stop_lock);
-// 	return (0);
-// }
 
 int	single_thread_must_stop(t_philo *philo)
 {	
 	pthread_mutex_lock(&philo->data->do_lock); //if philo was starving it dies
 	if ((time_in_ms() - philo->last_meal) >= philo->data->time_to_die)
 	{
-		print_status(philo, "died");
+		print_die(philo);
+		// print_status(philo, "died");
 		set_sim_stop(philo);
-		// sim_stop(philo, 1);
 		pthread_mutex_unlock(&philo->data->do_lock);
 		return (1); //return 1 if killed one philo
 	} //if he is still alive we check and there was one more arg  - data->fed+1 if he ate right amount of meals
@@ -60,7 +41,6 @@ int	single_thread_must_stop(t_philo *philo)
 		if (philo->data->fed >= philo->data->n_philo)
 		{
 			set_sim_stop(philo);
-			// sim_stop(philo, 1);
 			pthread_mutex_unlock(&philo->data->do_lock);
 			return (1);
 		}
@@ -76,7 +56,7 @@ void multiple_thread_monitoring(t_data *data)
 	while (1)
 	{ //limit is amount of meals
 		i = -1;
-		// data->fed = 0; //used calloc
+		data->fed = 0; // reset it to zerom, because we check from zero to full in "single thread must stop"
 		while(++i < data->n_philo)
 		{
 			if (single_thread_must_stop(&data->philo[i]))

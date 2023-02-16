@@ -6,7 +6,7 @@
 #    By: dgoremyk <dgoremyk@student.42wolfsburg.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/29 23:08:26 by dgoremyk          #+#    #+#              #
-#    Updated: 2023/02/15 23:15:33 by dgoremyk         ###   ########.fr        #
+#    Updated: 2023/02/16 10:20:13 by dgoremyk         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,6 +34,7 @@ all: $(NAME)
 
 $(NAME): $(OBJS)
 	$(CC) $(OBJS) $(CFLAGS) -o $(NAME)
+#linux sources instead of objs
 #$@
 
 $(OBJ_PATH)%.o: $(SRC_PATH)%.c

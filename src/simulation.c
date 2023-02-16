@@ -34,13 +34,15 @@ pthread_mutex_unlock
 
 void	*lone_philo_routine2(void *void_philo)
 {
-	t_philo *philo;
+	t_philo	*philo;
 
 	philo = (t_philo *)void_philo;
 	pthread_mutex_lock(&philo->data->forks[0]);
-	print_status(philo, "has taken the fork");
+	print_fork(philo);
+	// print_status(philo, "has taken the fork");
 	smart_sleep(philo, philo->data->time_to_die);
-	print_status(philo, "died");
+	print_die(philo);
+	// print_status(philo, "died");
 	pthread_mutex_unlock(&philo->data->forks[0]);
 	return (NULL);
 }
@@ -57,15 +59,17 @@ void	*routine(void *void_philo)
 		return(lone_philo_routine2(philo));
 
 	if (philo->id % 2 == 0)
-		usleep(philo->data->time_to_eat * 1000);
-		// usleep(5000);
+		usleep(5000);
 	while (1)
 	{
-		// if (sim_stop(philo, 0))
 		if (check_sim_stop(philo))
 			return (NULL);
-		philo_eating(philo); // it may finish but print is protected!
+		philo_eating(philo);
+		if (check_sim_stop(philo))
+			return (NULL);
 		philo_sleeping(philo);
+		if (check_sim_stop(philo))
+			return (NULL);
 		philo_thinking(philo);
 	}	
 	return(NULL);

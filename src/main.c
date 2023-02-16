@@ -2,7 +2,11 @@
 
 #include "../inc/philo.h"
 
-
+void	msg(char *s)
+{
+	printf("\033[1;31m");
+	printf("%s\n", s);
+}
 
 int	main(int ac, char **av)
 {
