@@ -6,7 +6,7 @@
 /*   By: dgoremyk <dgoremyk@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 13:50:24 by dgoremyk          #+#    #+#             */
-/*   Updated: 2023/02/16 13:54:37 by dgoremyk         ###   ########.fr       */
+/*   Updated: 2023/02/17 21:21:10 by dgoremyk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,8 @@ void	*lone_philo_routine(void *void_philo)
 	philo = (t_philo *)void_philo;
 	pthread_mutex_lock(&philo->data->forks[0]);
 	print_fork(philo);
-	// print_status(philo, "has taken the fork");
 	usleep(philo->data->time_to_die * 1000);
 	print_die(philo);
-	// print_status(philo, "died");
 	pthread_mutex_unlock(&philo->data->forks[0]);
 	return (NULL);
 }
@@ -57,7 +55,6 @@ void	*routine(void *void_philo)
 	t_philo	*philo;
 
 	philo = (t_philo *)void_philo;
-
 	if (philo->data->n_philo == 1)
 		return (lone_philo_routine(philo));
 	if (philo->id % 2)

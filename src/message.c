@@ -1,49 +1,16 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   message.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dgoremyk <dgoremyk@student.42wolfsburg.    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/02/17 21:19:29 by dgoremyk          #+#    #+#             */
+/*   Updated: 2023/02/17 21:19:32 by dgoremyk         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "../inc/philo.h"
-
-
-// void	red(void)
-// {
-// 	printf("\033[1;31m");
-// }
-
-// void	yellow(void)
-// {
-// 	printf("\033[1;33m");
-// }
-
-// void	green(void)
-// {
-// 	printf("\033[0;32m");
-// }
-
-// void	white(void)
-// {
-// 	printf("\033[37m");
-// }
-
-// void	blue(void)
-// {
-// 	printf("\033[0;34m");
-// }
-
-// void	purple()
-// {
-// 	printf("\033[0;35m");
-// }
-
-
-// void	print_status(t_philo *philo, char *s)
-// {
-// 	pthread_mutex_lock(&(philo->data->write_lock));
-// 	if (!check_sim_stop(philo))
-// 	{
-// 		printf("%ld ", time_in_ms() - philo->data->starttime);
-// 		printf("%i ", philo->id + 1);
-// 		printf("%s\n", s);
-// 	}
-// 	pthread_mutex_unlock(&(philo->data->write_lock));
-// }
 
 /* prints message in */
 void	print_fork(t_philo *philo)

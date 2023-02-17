@@ -6,7 +6,7 @@
 /*   By: dgoremyk <dgoremyk@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 14:13:19 by dgoremyk          #+#    #+#             */
-/*   Updated: 2023/02/16 14:13:25 by dgoremyk         ###   ########.fr       */
+/*   Updated: 2023/02/17 21:19:07 by dgoremyk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ int	main(int ac, char **av)
 
 	if (!valid_input(ac, av))
 		return (msg("input invalid"), 1);
-
 	data = malloc(1 * sizeof(t_data));
 	if (!data)
 		return (msg("malloc error (t_data *data)"), 1);

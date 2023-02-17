@@ -6,7 +6,7 @@
 /*   By: dgoremyk <dgoremyk@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 14:09:21 by dgoremyk          #+#    #+#             */
-/*   Updated: 2023/02/16 14:13:07 by dgoremyk         ###   ########.fr       */
+/*   Updated: 2023/02/17 21:18:50 by dgoremyk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,10 @@ void	smart_sleep(t_philo *philo, long ms)
 /*
 used do_lock in the middle to access safely
 time_in_ms() and save it locally in info of THIS philo
+
+usleep(data->time_to_eat * 1000); - he will be sleeping still
+if someone already died.
+
 not sure if placing for saving current time is correct
 */
 void	philo_eating(t_philo *philo)
@@ -41,14 +45,10 @@ void	philo_eating(t_philo *philo)
 	data = philo->data;
 	pthread_mutex_lock(&(data->forks[philo->l_fork]));
 	print_fork(philo);
-	// print_status(philo, "has taken a fork");
 	pthread_mutex_lock(&(data->forks[philo->r_fork]));
 	print_fork(philo);
-	// print_status(philo, "has taken a fork");
 	print_eat(philo);
-	// print_status(philo, "is eating");
 	smart_sleep(philo, data->time_to_eat);
-	// usleep(data->time_to_eat * 1000);
 	pthread_mutex_lock(&(data->do_lock));
 	philo->last_meal = time_in_ms();
 	philo->ate++;
@@ -60,13 +60,10 @@ void	philo_eating(t_philo *philo)
 void	philo_sleeping(t_philo *philo)
 {
 	print_sleep(philo);
-	// print_status(philo, "is sleeping");
 	smart_sleep(philo, philo->data->time_to_sleep);
-	// usleep(philo->data->time_to_sleep * 1000);
 }
 
 void	philo_thinking(t_philo *philo)
 {
 	print_think(philo);
-	// print_status(philo, "is thinking");
 }

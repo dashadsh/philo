@@ -6,7 +6,7 @@
 /*   By: dgoremyk <dgoremyk@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 14:07:05 by dgoremyk          #+#    #+#             */
-/*   Updated: 2023/02/16 14:07:07 by dgoremyk         ###   ########.fr       */
+/*   Updated: 2023/02/17 21:20:26 by dgoremyk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,6 @@ int	single_thread_must_stop(t_philo *philo)
 	if ((time_in_ms() - philo->last_meal) >= philo->data->time_to_die)
 	{
 		print_die(philo);
-		// print_status(philo, "died");
 		set_sim_stop(philo);
 		pthread_mutex_unlock(&philo->data->do_lock);
 		return (1);

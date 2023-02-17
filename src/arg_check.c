@@ -6,7 +6,7 @@
 /*   By: dgoremyk <dgoremyk@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 14:09:16 by dgoremyk          #+#    #+#             */
-/*   Updated: 2023/02/16 14:09:18 by dgoremyk         ###   ########.fr       */
+/*   Updated: 2023/02/17 21:22:30 by dgoremyk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,6 @@ int	valid_input(int ac, char **av)
 	if (!contains_integers(ac, av))
 		return (msg("int 1-INTMAX allowed"), 0);
 	if (philo_atoi(av[1]) > PHILO_MAX)
-		return (msg("max 200 philos"), 0);	
+		return (msg("max 200 philos"), 0);
 	return (1);
 }
