@@ -6,7 +6,7 @@
 /*   By: dgoremyk <dgoremyk@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 14:09:21 by dgoremyk          #+#    #+#             */
-/*   Updated: 2023/02/17 21:18:50 by dgoremyk         ###   ########.fr       */
+/*   Updated: 2023/02/20 19:52:52 by dgoremyk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	smart_sleep(t_philo *philo, long ms)
 
 	beginning = time_in_ms();
 	while (!check_sim_stop(philo) && (ms > (time_in_ms() - beginning)))
-		usleep(50);
+		usleep(500);
 }
 
 /*
