@@ -4,7 +4,11 @@ a philo should die
 a philo should die
 4 200 205 200
 a philo should die
+5 800 200 200
+no one should die
 5 800 200 200 7
+4 410 200 200
+no one should die
 no one should die, simulation should stop after 7 eats
 4 410 200 200 10
 no one should die, simulation should stop after 10 eats
@@ -31,3 +35,10 @@ no one should die
 no one should die
 200 800 200 200
 no one should die
+
+if you have a large numbet of philos like 100 (even number) no one should die for such situatuon:
+500 200 200
+if you have large numver of philos but in odd numbers, like 151 philos, no one should die with this condition:
+700 200 200
+and if the sleep time is less than the eat time, if your code is good no one should die but has never happened
+like: 10 400 200 100
