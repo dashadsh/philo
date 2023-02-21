@@ -6,7 +6,7 @@
 /*   By: dgoremyk <dgoremyk@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 14:13:12 by dgoremyk          #+#    #+#             */
-/*   Updated: 2023/02/17 21:22:12 by dgoremyk         ###   ########.fr       */
+/*   Updated: 2023/02/21 15:04:34 by dgoremyk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,11 @@ int	init_philo(t_data *data)
 		data->philo[i].r_fork = (i + 1) % data->n_philo;
 		data->philo[i].last_meal = data->starttime;
 		data->philo[i].data = data;
+		if (i % 2)
+		{
+		data->philo[i].l_fork = (i + 1) % data->n_philo;
+		data->philo[i].r_fork = i;
+		}
 	}
 	return (1);
 }
