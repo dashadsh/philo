@@ -1,5 +1,4 @@
-1 800 200 200
-a philo should die
+1 800 200 200 a philo should die
 4 310 200 100
 a philo should die
 4 200 205 200
@@ -42,3 +41,7 @@ if you have large numver of philos but in odd numbers, like 151 philos, no one s
 700 200 200
 and if the sleep time is less than the eat time, if your code is good no one should die but has never happened
 like: 10 400 200 100
+
+
+
+./philo 2 310 200 100
