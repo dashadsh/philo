@@ -6,7 +6,7 @@
 /*   By: dgoremyk <dgoremyk@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 13:50:24 by dgoremyk          #+#    #+#             */
-/*   Updated: 2023/02/17 21:21:10 by dgoremyk         ###   ########.fr       */
+/*   Updated: 2023/03/15 15:47:29 by dgoremyk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,8 @@ i don't know if i should create thread for it
 could have added on the beginning data->starttime = time_in_ms()
 but it was moved to data_init to avoid data_races
 
-do we need to add usleep in while loop?
+SIC! do we need to add usleep in while loop? 
+in my case it's working but it may crash on slower computer.
 */
 int	simulation_start(t_data *data)
 {

@@ -6,7 +6,7 @@
 /*   By: dgoremyk <dgoremyk@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 23:24:31 by dgoremyk          #+#    #+#             */
-/*   Updated: 2023/02/17 21:23:00 by dgoremyk         ###   ########.fr       */
+/*   Updated: 2023/03/15 15:38:15 by dgoremyk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,9 @@ typedef struct s_philo	t_philo;
 // pthread_mutex_t	write_lock; - lock for stdio so output is not corrupted
 // pthread_mutex_t	do_lock; - lock for any local change/time check
 // pthread_mutex_t	sim_stop_lock; - lock to set sim_stop flag
+//
+// probably i needed to create mutex for time and
+// keep 1 shared mutex for remaining data
 
 typedef struct s_data
 {
