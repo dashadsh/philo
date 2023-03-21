@@ -1,11 +1,14 @@
+eval. sheet:
 ./philo 1 800 200 200 a philo should die
-./philo 4 310 200 100
-a philo should die
+./philo 5 800 200 200 no one should die
+./philo 5 800 200 200 7
+./philo 4 410 200 200 no one should die
+./philo 4 310 200 100 a philo should die
+
+test with 2 philos
+
 ./philo 4 200 205 200
 a philo should die
-./philo 5 800 200 200
-no one should die
-./philo 5 800 200 200 7
 ./philo 4 410 200 200
 no one should die
 no one should die, simulation should stop after 7 eats
