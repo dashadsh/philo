@@ -6,7 +6,7 @@
 /*   By: dgoremyk <dgoremyk@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 14:07:05 by dgoremyk          #+#    #+#             */
-/*   Updated: 2023/02/22 20:36:42 by dgoremyk         ###   ########.fr       */
+/*   Updated: 2023/03/21 16:02:21 by dgoremyk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,6 +114,6 @@ void	multiple_thread_monitoring(t_data *data)
 			if (single_thread_must_stop(&data->philo[i]))
 				return ;
 		}
-		usleep(200);
+		usleep(500);
 	}
 }
